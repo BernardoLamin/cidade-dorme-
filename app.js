@@ -40,6 +40,8 @@ var NARRA_PISTA = [
 var app = document.getElementById('app');
 function lerLS(k, pad) { try { var v = localStorage.getItem('cd_' + k); return v == null ? pad : v; } catch (e) { return pad; } }
 function gravarLS(k, v) { try { localStorage.setItem('cd_' + k, v); } catch (e) {} }
+/* link de configuração: abrir o jogo com #chave=... salva a chave do Gemini neste aparelho e limpa o endereço */
+try { var hm = /[#&]chave=([^&]+)/.exec(location.hash); if (hm) { gravarLS('iachave', decodeURIComponent(hm[1]).trim()); history.replaceState(null, '', location.pathname + location.search); } } catch (e) {}
 var tokenSalvo = lerLS('token', '');
 if (!tokenSalvo) { tokenSalvo = Math.random().toString(36).slice(2) + Date.now().toString(36); gravarLS('token', tokenSalvo); }
 var salaUrl = ''; try { salaUrl = (new URLSearchParams(location.search).get('sala') || '').toUpperCase().slice(0, 4); } catch (e) {}
